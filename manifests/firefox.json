@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Quality Tab Play",
+  "version": "0.1.0",
+  "description": "Choose the highest available YouTube quality and control playback when tabs are hidden.",
+  "icons": {
+    "16": "src/icons/16.png",
+    "32": "src/icons/32.png",
+    "48": "src/icons/48.png",
+    "128": "src/icons/128.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{4e4ccf4e-59c2-4d0f-a8f4-e6a7f0c5b1d2}",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    },
+    "gecko_android": {
+      "strict_min_version": "142.0"
+    }
+  },
+  "action": {
+    "default_title": "YouTube Quality Tab Play",
+    "default_popup": "src/options.html"
+  },
+  "options_ui": {
+    "page": "src/options.html",
+    "open_in_tab": true
+  },
+  "permissions": ["storage"],
+  "host_permissions": ["https://www.youtube.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["src/content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["src/page.mjs", "src/quality.mjs", "src/autoplay-policy.mjs"],
+      "matches": ["https://www.youtube.com/*"]
+    }
+  ]
+}

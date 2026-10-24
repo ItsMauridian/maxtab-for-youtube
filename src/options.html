@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YouTube Quality Tab Play</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main>
+    <h1>YouTube Quality Tab Play</h1>
+    <p class="intro">Independent quality and background-tab playback controls.</p>
+    <label>
+      <span>Default quality</span>
+      <select id="qualityMode">
+        <option value="highest">Highest available</option>
+        <option value="auto">YouTube automatic</option>
+        <option value="hd2160">2160p</option>
+        <option value="hd1440">1440p</option>
+        <option value="hd1080">1080p</option>
+        <option value="hd720">720p</option>
+      </select>
+    </label>
+    <label class="checkbox">
+      <input id="autopauseHiddenTabs" type="checkbox">
+      <span>Pause YouTube when its tab is hidden, then resume extension-paused playback</span>
+    </label>
+    <button id="save" type="button">Save</button>
+    <p id="status" role="status" aria-live="polite"></p>
+    <p class="note">Firefox may require YouTube autoplay permission before audible script playback can resume.</p>
+  </main>
+  <script type="module" src="options.js"></script>
+</body>
+</html>
