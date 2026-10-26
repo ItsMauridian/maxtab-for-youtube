@@ -9,6 +9,7 @@
 - [x] Firefox `web-ext lint`
 - [x] Firefox temporary add-on installation through `web-ext run`
 - [x] Source and runtime archives pass ZIP integrity checks
+- [x] Firefox `.xpi` archive is generated from the same deterministic package
 - [x] Manifest permissions and icon paths are covered by tests
 - [x] No secret-like values found in the source tree
 

@@ -40,7 +40,7 @@ python3 tools/browser_smoke.py \
 
 This proves extension loading, page-bridge injection, and highest-quality selection. It does not replace a headed manual tab-strip test, because some automation engines keep multiple pages visible.
 
-The build creates deterministic unpacked directories and ZIP files under `dist/` for Chromium, Firefox, and the source tree. Running `npm run build` twice should produce identical SHA-256 hashes. Load the unpacked directory in `chrome://extensions` or `about:debugging` for manual testing. Do not install both the official extension and a development build with the same browser profile unless their IDs differ.
+The build creates deterministic unpacked directories and archives under `dist/` for Chromium, Firefox, a Firefox `.xpi`, and the source tree. Running `npm run build` twice should produce identical SHA-256 hashes. For Firefox temporary testing, use `about:debugging`, choose **This Firefox**, choose **Load Temporary Add-on**, and select either `manifest.json` inside the extracted Firefox directory or the `.xpi` release asset. Do not use the browser's normal end-user add-on installer for an unsigned temporary build. Do not install both the official extension and a development build with the same browser profile unless their IDs differ.
 
 ## Clean-room and licensing boundary
 

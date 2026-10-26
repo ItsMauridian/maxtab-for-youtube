@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "YouTube Quality Tab Play",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Choose the highest available YouTube quality and control playback when tabs are hidden.",
   "icons": {
     "16": "src/icons/16.png",

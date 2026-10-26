@@ -35,6 +35,7 @@ def write_archive(archive: Path, root: Path, paths: list[Path]) -> None:
 def build(browser: str) -> None:
     staging = DIST / browser
     archive = DIST / f'youtube-quality-tabplay-{browser}.zip'
+    xpi = DIST / 'youtube-quality-tabplay-firefox.xpi' if browser == 'firefox' else None
     if staging.exists():
         shutil.rmtree(staging)
     staging.mkdir(parents=True)
@@ -45,10 +46,16 @@ def build(browser: str) -> None:
     manifest = json.loads((ROOT / 'manifests' / f'{browser}.json').read_text())
     (staging / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
     write_archive(archive, staging, list(staging.rglob('*')))
+    if xpi is not None:
+        write_archive(xpi, staging, list(staging.rglob('*')))
     with zipfile.ZipFile(archive) as check:
         assert check.testzip() is None
         json.loads(check.read('manifest.json'))
         assert 'LICENSE' in check.namelist()
+    if xpi is not None:
+        with zipfile.ZipFile(xpi) as check:
+            assert check.testzip() is None
+            assert check.read('manifest.json') == (staging / 'manifest.json').read_bytes()
 
 
 def build_source() -> None:
@@ -68,4 +75,4 @@ if __name__ == '__main__':
     build('chromium')
     build('firefox')
     build_source()
-    print('built dist/chromium, dist/firefox and source ZIP archive')
+    print('built dist/chromium, dist/firefox, Firefox XPI and source ZIP archive')
