@@ -1,4 +1,4 @@
-# YouTube Quality Tab Play
+# MaxTab for YouTube
 
 An independent, clean-room WebExtension for YouTube. It defaults to the highest quality that YouTube exposes for the current video and pauses playback while a YouTube tab is hidden, resuming only playback that this extension paused.
 
@@ -34,7 +34,7 @@ For an optional Chromium runtime smoke test, install Python Playwright in the en
 
 ```sh
 python3 tools/browser_smoke.py \
-  --archive dist/youtube-quality-tabplay-chromium.zip \
+  --archive dist/maxtab-for-youtube-chromium.zip \
   --executable /path/to/chromium
 ```
 

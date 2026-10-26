@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "YouTube Quality Tab Play",
-  "version": "0.1.1",
+  "name": "MaxTab for YouTube",
+  "version": "0.1.2",
   "description": "Choose the highest available YouTube quality and control playback when tabs are hidden.",
   "icons": {
     "16": "src/icons/16.png",
@@ -22,7 +22,7 @@
     }
   },
   "action": {
-    "default_title": "YouTube Quality Tab Play",
+    "default_title": "MaxTab for YouTube",
     "default_popup": "src/options.html"
   },
   "options_ui": {

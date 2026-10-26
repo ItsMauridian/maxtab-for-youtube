@@ -1,15 +1,18 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import shutil
 import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / 'dist'
+PROJECT_SLUG = 'maxtab-for-youtube'
 FILES = [
     ROOT / 'LICENSE',
     ROOT / 'README.md',
+    ROOT / 'CHANGELOG.md',
     ROOT / 'CONTRIBUTING.md',
     ROOT / 'SECURITY.md',
     ROOT / 'PROVENANCE.md',
@@ -34,8 +37,8 @@ def write_archive(archive: Path, root: Path, paths: list[Path]) -> None:
 
 def build(browser: str) -> None:
     staging = DIST / browser
-    archive = DIST / f'youtube-quality-tabplay-{browser}.zip'
-    xpi = DIST / 'youtube-quality-tabplay-firefox.xpi' if browser == 'firefox' else None
+    archive = DIST / f'{PROJECT_SLUG}-{browser}.zip'
+    xpi = DIST / f'{PROJECT_SLUG}-firefox.xpi' if browser == 'firefox' else None
     if staging.exists():
         shutil.rmtree(staging)
     staging.mkdir(parents=True)
@@ -59,7 +62,7 @@ def build(browser: str) -> None:
 
 
 def build_source() -> None:
-    archive = DIST / 'youtube-quality-tabplay-source.zip'
+    archive = DIST / f'{PROJECT_SLUG}-source.zip'
     paths = [
         path for path in ROOT.rglob('*')
         if path.is_file() and not (set(path.relative_to(ROOT).parts) & SOURCE_EXCLUDES)
@@ -70,9 +73,24 @@ def build_source() -> None:
         assert 'LICENSE' in check.namelist()
 
 
+def write_checksums() -> None:
+    names = [
+        f'{PROJECT_SLUG}-chromium.zip',
+        f'{PROJECT_SLUG}-firefox.zip',
+        f'{PROJECT_SLUG}-firefox.xpi',
+        f'{PROJECT_SLUG}-source.zip',
+    ]
+    lines = []
+    for name in names:
+        digest = hashlib.sha256((DIST / name).read_bytes()).hexdigest()
+        lines.append(f'{digest}  {name}')
+    (DIST / 'SHA256SUMS.txt').write_text('\n'.join(lines) + '\n')
+
+
 if __name__ == '__main__':
     DIST.mkdir(exist_ok=True)
     build('chromium')
     build('firefox')
     build_source()
-    print('built dist/chromium, dist/firefox, Firefox XPI and source ZIP archive')
+    write_checksums()
+    print('built dist/chromium, dist/firefox, Firefox XPI, source ZIP and SHA256SUMS')

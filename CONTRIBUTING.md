@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping with YouTube Quality Tab Play.
+Thanks for helping with MaxTab for YouTube.
 
 ## Source boundary
 

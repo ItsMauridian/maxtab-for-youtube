@@ -85,13 +85,17 @@ function handlePlaybackError(error) {
 function pauseForHiddenTab(videoElement = findVideo()) {
   if (!state.settings.autopauseHiddenTabs || !videoElement || videoElement.paused) return;
   Object.assign(state, markHiddenPlayback(state, true));
+  const consumePauseRequest = () => {
+    state.pauseRequestActive = false;
+    videoElement.removeEventListener('pause', consumePauseRequest, true);
+    clearTimeout(state.pauseTimer);
+  };
+  videoElement.addEventListener('pause', consumePauseRequest, true);
   try {
     videoElement.pause();
   } finally {
     clearTimeout(state.pauseTimer);
-    state.pauseTimer = setTimeout(() => {
-      state.pauseRequestActive = false;
-    }, 1000);
+    state.pauseTimer = setTimeout(consumePauseRequest, 250);
   }
 }
 
@@ -148,7 +152,7 @@ function applyQuality() {
     document.documentElement.dataset.ytqtaQuality = target;
     return true;
   } catch (error) {
-    console.warn('[YouTube Quality Tab Play] quality selection failed', error);
+    console.warn('[MaxTab for YouTube] quality selection failed', error);
     return false;
   }
 }

@@ -13,7 +13,7 @@ test('Chromium and Firefox manifests stay least-privilege and self-contained', a
   for (const browser of ['chromium', 'firefox']) {
     const manifest = await json(`manifests/${browser}.json`);
     assert.equal(manifest.manifest_version, 3);
-    assert.equal(manifest.name, 'YouTube Quality Tab Play');
+    assert.equal(manifest.name, 'MaxTab for YouTube');
     assert.deepEqual(manifest.permissions, ['storage']);
     assert.deepEqual(manifest.host_permissions, ['https://www.youtube.com/*']);
     assert.equal('background' in manifest, false);

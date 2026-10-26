@@ -1,6 +1,6 @@
 {
-  "name": "youtube-quality-tabplay",
-  "version": "0.1.1",
+  "name": "maxtab-for-youtube",
+  "version": "0.1.2",
   "private": true,
   "type": "module",
   "description": "Independent open-source WebExtension for YouTube quality and tab playback behavior.",
